@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace api_limit
 {
@@ -34,6 +35,7 @@ namespace api_limit
             }
 
             // app.UseIpRateLimiting();
+            
             app.UseClientRateLimiting();
             app.UseHttpsRedirection();
 

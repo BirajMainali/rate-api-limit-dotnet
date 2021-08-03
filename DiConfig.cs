@@ -18,7 +18,10 @@ namespace api_limit
             // services.Configure<IpRateLimitPolicies>(configuration.GetSection("IpRateLimitPolicies"));
             services.Configure<ClientRateLimitOptions>(configuration.GetSection("ClientRateLimiting"));
             services.Configure<ClientRateLimitPolicies>(configuration.GetSection("ClientRateLimitPolicies"));
-            // services.AddInMemoryRateLimiting();
+            // services.AddInMemoryRateLimiting();  
+            // Dynamic Redis Connection
+            // var redisOptions = ConfigurationOptions.Parse(configuration["ConnectionStrings:Redis"]);
+            // services.AddSingleton<IConnectionMultiplexer>(provider => ConnectionMultiplexer.Connect(redisOptions));
             services.AddRedisRateLimiting();
             Installer(services);
         }
@@ -28,6 +31,6 @@ namespace api_limit
                 // .AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
                 .AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>()
                 .AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>()
-                .AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect("localhost:6379")); // Redis Connection 
+                .AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect("localhost:6379")); // Redis Connection
     }
 }
